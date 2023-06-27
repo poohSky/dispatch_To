@@ -1,18 +1,19 @@
 # This is a basic workflow to help you get started with Actions
 
-name: BuildTest
+name: From Workflow
 
 on:
- push:
-    branches: [ "main" ]
+ repository_dispatch:
+   types:
+     - trigger-workflow
 
 jobs:
  from:
-   runs-on: [ "self-hosted" ]
+   runs-on: self-hosted
 
    steps:
-     - name: Checkout Repo
+     - name: Checkout test
        uses: actions/checkout@v2
        
      - name: echo hello
-       run: echo "hello Test"
+       run: echo hello Test
