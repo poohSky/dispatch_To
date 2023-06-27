@@ -21,4 +21,6 @@ jobs:
           fetch-depth: 0
      
       - name: echo hello
-        run: echo hello Test
+        run: |
+         echo hello Test
+         eho ${{ github.event.client_payload.github.action }}
