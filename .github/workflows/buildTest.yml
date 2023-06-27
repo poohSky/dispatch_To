@@ -1,19 +1,24 @@
-# This is a basic workflow to help you get started with Actions
+name: CI
 
-name: From Workflow
-
+# Controls when the workflow will run
 on:
- repository_dispatch:
-   types:
-     - trigger-workflow
+  repository_dispatch:
+    types: [trigger-workflow]
 
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
- from:
-   runs-on: self-hosted
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: [ "self-hosted" ]
 
-   steps:
-     - name: Checkout test
-       uses: actions/checkout@v2
-       
-     - name: echo hello
-       run: echo hello Test
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: test checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+     
+      - name: echo hello
+        run: echo hello Test
