@@ -22,6 +22,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: test local config
+        run: |
+          "C:\Program Files\Git\cmd\git.exe" config --global --add safe.directory C:\Work\Skyler\github\self-hosted-runner\actions-runner\_work\dispatch_To\dispatch_To
+          "C:\Program Files\Git\cmd\git.exe" config --local --get remote.origin.url
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
