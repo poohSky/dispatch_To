@@ -1,0 +1,49 @@
+# This is a basic workflow to help you get started with Actions
+
+name: dispatch_repository
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: [ self-hosted ]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Checkout Source Repository
+        uses: actions/checkout@v2
+        with:
+          repository: poohSky/dispatch_From
+          path: test_clone  # Clone the "src" folder from source-repo
+          
+      - name: Configure Git
+        run: |
+          git config user.name "Skyler Hwang"
+          git config user.email "thebluesky93@naver.com"
+
+      - name: Commit Changes
+        run: |
+          ls test_clone
+          git add .
+          git commit -m "Add cloned contents"
+          git status
+
+      - name: Push Changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: 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
