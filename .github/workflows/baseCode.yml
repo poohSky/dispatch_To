@@ -26,7 +26,7 @@ jobs:
 
      - name: Create PR
        run: |
-        git branch -d feature/PSbranch
+        git branch -D feature/PSbranch
         git checkout -b feature/PSbranch
         echo "New feature code" >> feature-file.txt
         git add .
