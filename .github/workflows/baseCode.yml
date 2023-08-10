@@ -36,6 +36,6 @@ jobs:
         curl -X POST -H "Authorization: token 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" -d '{
         "title": "Test Pull Request Title",
         "body": "Pull Request Body :earth_asia:",
-        "head": "main",
-        "base": "feature/PSbranch"
+        "head": "feature/PSbranch",
+        "base": "main"
         }' https://api.github.com/repos/poohSky/dispatch_From/pulls
