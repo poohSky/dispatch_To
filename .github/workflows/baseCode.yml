@@ -33,7 +33,7 @@ jobs:
        run: npm install
 
      - name: Create new branch
-       run: git switch -b feature/Testbranch
+       run: git checkout feature/Testbranch
 
      - name: Make changes
        run: echo "New feature code" >> feature-file.txt
