@@ -24,40 +24,13 @@ jobs:
      - name: Checkout code
        uses: actions/checkout@v3
 
-     - name: Set up Node.js
-       uses: actions/setup-node@v2
-       with:
-         node-version: '14'
-
-     - name: Install dependencies
-       run: npm install
-
-     - name: Create new branch
-       run: git checkout feature/Testbranch
-
-     - name: Make changes
-       run: echo "New feature code" >> feature-file.txt
-
-     - name: Commit changes
+     - name: Create PR
        run: |
-         git config --local user.email "thebluesky93@naver.com"
-         git config --local user.name "Skyler Hwang"
-         git add .
-         git commit -m "Add new feature"
-
-     - name: Push changes to new branch
-       run: git push origin feature/Testbranch
-
-     - name: Create Pull Request
-       uses: actions/github-script@v4
-       with:
-         github-token: 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 
-         script: |
-           const { data: pr } = await github.pulls.create({
-             owner: 'poohSky',
-             repo: 'dispatch_From',
-             title: 'New feature Pull Request',
-             head: 'feature/Testbranch',
-             base: 'main'
-           });
-           console.log(`Created Pull Request: ${pr.html_url}`);
+        git checkout -b feature/TSbranch
+        
+        echo "New feature code" >> feature-file.txt
+        
+        git add .
+        git commit -m "Update files"
+        git push origin feature/TSbranch
+        gh pr create --title "Pull Request from Linux to Windows" --body "This is a pull request created by GitHub Actions" --base main --head feature/TSbranch
