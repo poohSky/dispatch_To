@@ -32,7 +32,7 @@ jobs:
         git commit -m "Update files"
         git push origin feature/PSbranch
         
-        curl -X POST -H "Authorization: token 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" -d '{
+        curl -X POST -H "Authorization: token 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" -d '{
         "title": "Test Pull Request Title",
         "body": "Pull Request Body :earth_asia:",
         "head": "feature/PSbranch",
