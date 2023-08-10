@@ -27,10 +27,14 @@ jobs:
      - name: Create PR
        run: |
         git checkout -b feature/TSbranch
-        
         echo "New feature code" >> feature-file.txt
-        
         git add .
         git commit -m "Update files"
-        git push origin feature/TSbranch
-        gh pr create --title "Pull Request from Linux to Windows" --body "This is a pull request created by GitHub Actions" --base main --head feature/TSbranch
+        git push origin feature-branch
+        
+        curl -X POST -H "Authorization: token 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" -d '{
+        "title": "Test Pull Request Title",
+        "body": "Pull Request Body :earth_asia:",
+        "head": "feature/TSbranch",
+        "base": "main"
+        }' https://api.github.com/repos/poohSky/dispatch_From/pulls
