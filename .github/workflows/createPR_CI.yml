@@ -29,11 +29,13 @@ jobs:
        run: |
          git status
          git branch
+         git submodule update --remote
          
      - name: Create TSbranch in submodule
        run: |
-         git submodule update --init
          cd dispatch_From
+         git submodule update --init --recursive
+         
          git checkout -b feature/TSbranch
          echo "This is a test file." > test.txt
          
