@@ -30,8 +30,9 @@ jobs:
          git fetch origin
          git status
          git branch
-         git branch -d feature/TSbranch
-         git branch -d feature/PSbranch
+         git branch -D feature/TSbranch
+         git branch -D feature/PSbranch
+         git branch -D feature/Testbranch
          
      - name: Create TSbranch in submodule
        run: |
