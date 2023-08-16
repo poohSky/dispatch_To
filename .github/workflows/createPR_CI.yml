@@ -25,33 +25,21 @@ jobs:
        #  token: ${{ secrets.G_ACCESS_TOKEN }}
        #  submodules: true
 
-     - name: Create txt files.
+     - name: Create TSbranch in submodule
+       run: |
+         git submodule update --init
+         cd dispatch_From
+         git checkout -b feature/TSbranch
+         echo "This is a test file." > test.txt
+         git add test.txt
+         git commit -m "Add test.txt"
+         git push origin feature/TSbranch
+
+     - name: Create Pull Request
        run: |
          cd dispatch_From
-         echo "Test create PR" > test_PR.txt
-         
-     - name: Create pull request
-       uses: paygoc6/action-pull-request-another-repo@v1.0.1
-       env:
-         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-       with:
-         source_folder: 'dispatch_From'
-         destination_repo: 'poohSky/dispatch_From'
-         # destination_folder: 'folder-name'
-         destination_base_branch: 'feature/TSbranch'
-         destination_head_branch: 'main'
-         user_email: 'thebluesky93@naver.com'
-         user_name: 'Skyler Hwang'
-        
- #    - name: Create PR
- #      run: |
- #       git branch -D feature/PSbranch
- #       git checkout -b feature/PSbranch
- #       echo "New feature code" >> feature-file.txt
- #       git add .
- #       git commit -m "Update files"
- #       git push origin feature/PSbranch
- #       
+         gh pr create --base main --head feature/TSbranch --title "create PR test" --body "Test body :earth_asia:"
+          
  #       curl -X POST -H "Authorization: token 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" -d '{
  #       "title": "Test Pull Request Title",
  #       "body": "Pull Request Body :earth_asia:",
