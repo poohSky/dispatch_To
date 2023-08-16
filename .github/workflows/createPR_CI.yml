@@ -28,7 +28,7 @@ jobs:
      - name: Create txt files.
        run: |
          cd dispatch_From
-         echo "Test PR" > test_PR.txt
+         echo "Test create PR" > test_PR.txt
          
      - name: Create pull request
        uses: paygoc6/action-pull-request-another-repo@v1.0.1
