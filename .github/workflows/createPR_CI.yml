@@ -24,7 +24,12 @@ jobs:
        #with:
        #  token: ${{ secrets.G_ACCESS_TOKEN }}
        #  submodules: true
-          
+
+     - name: check git branch
+       run: |
+         git status
+         git btanch
+         
      - name: Create TSbranch in submodule
        run: |
          git submodule update --init
