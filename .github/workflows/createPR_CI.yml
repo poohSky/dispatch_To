@@ -37,21 +37,8 @@ jobs:
 
      - name: Set up Git
        run: |
-         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-         git config --global user.name "GitHub Actions"
-
-     - name: Get GitHub User
-       id: github_user
-       run: |
-        $headers = @{
-           Authorization = "token $env:GITHUB_TOKEN"
-         }
-         $response = Invoke-RestMethod -Uri https://api.github.com/user -Headers $headers
-         Write-Output "::set-output name=username::$($response.login)"
-         Write-Output "::set-output name=email::$($response.email)"
-
-         echo "GitHub User: $env:GITHUB_USER"
-         echo "GitHub Email: $env:GITHUB_EMAIL"
+         git config --global user.email "thebluesky93@naver.com"
+         git config --global user.name "poohSky"
         
      - name: Create TSbranch in submodule
        run: |
