@@ -27,10 +27,8 @@ jobs:
 
      - name: check git branch
        run: |
-         git fetch origin
          git status
          git branch
-         git branch -D feature/TSbranch
          
      - name: Create TSbranch in submodule
        run: |
