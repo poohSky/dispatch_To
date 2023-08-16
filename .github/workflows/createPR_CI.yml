@@ -28,7 +28,7 @@ jobs:
      - name: check git branch
        run: |
          git status
-         git btanch
+         git branch
          
      - name: Create TSbranch in submodule
        run: |
