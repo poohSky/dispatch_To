@@ -27,8 +27,12 @@ jobs:
 
      - name: check git branch
        run: |
+         rm -rf ./dispatch_From
+         git submodule update --init --recursive
+         
          git status
          git branch
+         git branch -D feature/TSbranch
          git submodule update --remote
          
      - name: Create TSbranch in submodule
