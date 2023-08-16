@@ -33,6 +33,12 @@ jobs:
         echo "This is a test file." > test.txt
         git add .
         git commit -m "Add test.txt"
+
+        echo "test check point"
+        git status
+        git branch
+
+        echo "git push check"
         git push origin feature/TSbranch
 
      - name: Get GitHub User and Email
