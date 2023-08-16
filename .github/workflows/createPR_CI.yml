@@ -28,7 +28,7 @@ jobs:
      - name: check git branch
        run: |
          ls
-         rm .\dispatch_From
+         del /s /q .\dispatch_From\*
          git submodule update --init --recursive
          
          git status
