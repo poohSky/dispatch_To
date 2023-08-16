@@ -31,8 +31,6 @@ jobs:
          git status
          git branch
          git branch -D feature/TSbranch
-         git branch -D feature/PSbranch
-         git branch -D feature/Testbranch
          
      - name: Create TSbranch in submodule
        run: |
