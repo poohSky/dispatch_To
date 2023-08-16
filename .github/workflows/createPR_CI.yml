@@ -40,7 +40,9 @@ jobs:
 
         echo "git push check"
         git push origin feature/TSbranch
-
+       env:
+        GITHUB_TOKEN: ${{ secrets.G_ACCESS_TOKEN }}
+    
      - name: Get GitHub User and Email
        run: |
         GITHUB_USER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | Select-Object -ExpandProperty login)
