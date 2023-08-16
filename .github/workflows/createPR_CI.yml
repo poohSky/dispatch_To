@@ -33,14 +33,16 @@ jobs:
          
          git status
          git branch
-         git branch -D feature/TSbranch
          git submodule update --remote
          
      - name: Create TSbranch in submodule
        run: |
          cd dispatch_From
-         git branch -D feature/TSbranch
+
+         git config user.name "${GITHUB_ACTOR}"
+         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
          
+         git branch -D feature/TSbranch
          git checkout -b feature/TSbranch
          echo "This is a test file." > test.txt
          
@@ -54,8 +56,6 @@ jobs:
      - name: Create Pull Request
        run: |
          cd dispatch_From
-         git config user.name "${GITHUB_ACTOR}"
-         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
          gh pr create --base main --head feature/TSbranch --title "create PR test" --body "Test body :earth_asia:"
           
