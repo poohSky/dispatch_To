@@ -34,16 +34,28 @@ jobs:
          git status
          git branch
          git submodule update --remote
-         
+
+     - name: Set up Git
+       run: |
+         git config user.name "${GITHUB_ACTOR}"
+         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
+     - name: Get GitHub User and Email
+       env:
+         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Requires a GitHub token with read:user scope
+       run: |
+         GITHUB_USER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | jq -r .login)
+         GITHUB_EMAIL=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user/emails | jq -r '.[] | select(.primary == true) | .email')
+
+         echo "GitHub User: $GITHUB_USER"
+         echo "GitHub Email: $GITHUB_EMAIL"
+        
      - name: Create TSbranch in submodule
        run: |
          cd dispatch_From
 
          git branch -D feature/TSbranch
          git checkout -b feature/TSbranch
-
-         git config user.name "poohSky"
-         git config user.email "thebluesky93@naver.com"
          
          echo "This is a test file." > test.txt
          git add test.txt
