@@ -27,6 +27,7 @@ jobs:
 
      - name: check git branch
        run: |
+         git fetch origin
          git status
          git branch
          
