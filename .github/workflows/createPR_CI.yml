@@ -54,6 +54,9 @@ jobs:
      - name: Create Pull Request
        run: |
          cd dispatch_From
+         git config user.name "${GITHUB_ACTOR}"
+         git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
          gh pr create --base main --head feature/TSbranch --title "create PR test" --body "Test body :earth_asia:"
           
  #       curl -X POST -H "Authorization: token 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" -d '{
