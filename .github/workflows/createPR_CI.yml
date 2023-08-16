@@ -21,50 +21,36 @@ jobs:
     steps:
      - name: Checkout code
        uses: actions/checkout@v3
-       #with:
-       #  token: ${{ secrets.G_ACCESS_TOKEN }}
-       #  submodules: true
 
-     - name: check git branch
+     - name: Update submodule and create branch
        run: |
-         ls
-         Remove-Item -Path ".\dispatch_From\*" -Force -Recurse
-         git submodule update --init --recursive
-         
-         git status
-         git branch
-         git submodule update --remote
+        git submodule update --init --recursive
+        cd dispatch_From
 
-     - name: Set up Git
-       run: |
-         git config --global user.email "thebluesky93@naver.com"
-         git config --global user.name "poohSky"
+        git branch -D feature/TSbranch
+        git checkout -b feature/TSbranch
         
-     - name: Create TSbranch in submodule
-       run: |
-         cd dispatch_From
+        echo "This is a test file." > test.txt
+        git add .
+        git commit -m "Add test.txt"
+        git push origin feature/TSbranch
 
-         git branch -D feature/TSbranch
-         git checkout -b feature/TSbranch
-         
-         echo "This is a test file." > test.txt
-         git add test.txt
-         
-         echo "git status"
-         git status
-         
-         git commit -m "Add test.txt"
-         echo "push origin feature/TSbranch"
-         git push origin feature/TSbranch
-       env:
-         GITHUB_TOKEN: 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
+     - name: Get GitHub User and Email
+       run: |
+        GITHUB_USER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | Select-Object -ExpandProperty login)
+        GITHUB_EMAIL=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | Select-Object -ExpandProperty email)
 
      - name: Create Pull Request
        run: |
-         cd dispatch_From
-
-         gh pr create --base main --head feature/TSbranch --title "create PR test" --body "Test body :earth_asia:"
-          
+        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+        GITHUB_REPOSITORY=${{ github.repository }}
+        REPO_OWNER=$(echo $GITHUB_REPOSITORY | cut -d / -f 1)
+        REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)
+        TITLE="create PR test"
+        BODY="Test body :earth_asia:"
+        
+        gh pr create --base main --head $GITHUB_USER:feature/TSbranch --title "$TITLE" --body "$BODY" --repo $REPO_OWNER/$REPO_NAME
+        
  #       curl -X POST -H "Authorization: token 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" -d '{
  #       "title": "Test Pull Request Title",
  #       "body": "Pull Request Body :earth_asia:",
