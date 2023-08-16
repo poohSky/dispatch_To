@@ -24,14 +24,18 @@ jobs:
        #with:
        #  token: ${{ secrets.G_ACCESS_TOKEN }}
        #  submodules: true
-
+          
      - name: Create TSbranch in submodule
        run: |
          git submodule update --init
          cd dispatch_From
          git checkout -b feature/TSbranch
          echo "This is a test file." > test.txt
+         
          git add test.txt
+         echo "git status"
+         git status
+         
          git commit -m "Add test.txt"
          git push origin feature/TSbranch
 
