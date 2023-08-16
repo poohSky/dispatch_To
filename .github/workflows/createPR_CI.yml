@@ -1,0 +1,60 @@
+# This is a basic workflow to help you get started with Actions
+
+name: createPR_CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  create_pull_request:
+    # The type of runner that the job will run on
+    runs-on: [ self-hosted ]
+
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
+       with:
+         token: ${{ secrets.G_ACCESS_TOKEN }}
+         submodules: true
+
+     - name: Create txt files.
+       run: |
+         cd dispatch_From
+         echo "Test PR" > test_PR.txt
+         
+     - name: Create pull request
+       uses: paygoc6/action-pull-request-another-repo@v1.0.1
+       env:
+         API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+       with:
+         source_folder: 'dispatch_From'
+         destination_repo: 'poohSky/dispatch_From'
+         # destination_folder: 'folder-name'
+         destination_base_branch: 'feature/TSbranch'
+         destination_head_branch: 'main'
+         user_email: 'thebluesky93@naver.com'
+         user_name: 'Skyler Hwang'
+        
+ #    - name: Create PR
+ #      run: |
+ #       git branch -D feature/PSbranch
+ #       git checkout -b feature/PSbranch
+ #       echo "New feature code" >> feature-file.txt
+ #       git add .
+ #       git commit -m "Update files"
+ #       git push origin feature/PSbranch
+ #       
+ #       curl -X POST -H "Authorization: token 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" -d '{
+ #       "title": "Test Pull Request Title",
+ #       "body": "Pull Request Body :earth_asia:",
+ #       "head": "feature/PSbranch",
+ #       "base": "main"
+ #       }' https://api.github.com/repos/poohSky/dispatch_To/pulls
