@@ -11,25 +11,30 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   
-permissions:
-  contents: write
-  
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   create_pull_request:
     # The type of runner that the job will run on
     runs-on: [ self-hosted ]
-
+    permissions:
+      contents: write
+      packages: write
+      
     steps:
      - name: Checkout action
        uses: actions/checkout@v3
+       with:
+         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
 
      - name: Checkout submodule
        uses: actions/checkout@v3
        with:
          repository: poohSky/dispatch_From
          path: dispatch_From
+         persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+         fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
          token: ${{ secrets.GITHUB_TOKEN }}
          
      - name: Set up Git
