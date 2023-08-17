@@ -33,6 +33,7 @@ jobs:
        run: |
         cd dispatch_From
 
+        git branch -D feature/TSbranch
         git checkout -b feature/TSbranch
         echo "test check point"
         git status
