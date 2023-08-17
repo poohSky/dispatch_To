@@ -31,15 +31,13 @@ jobs:
           
      - name: Update submodule and create branch
        run: |
-        git submodule update --init --recursive
         cd dispatch_From
 
-        git branch -D feature/TSbranch
         git checkout -b feature/TSbranch
-        git pull
-
         echo "test check point"
         git status
+
+        git config --global credential.helper store
         git config --local user.name "poohSky"
         git config --local user.email "thebluesky93@naver.com"
           
@@ -52,10 +50,9 @@ jobs:
         git branch
 
         echo "git push check"
-        git log
-        git push origin main
+        git push origin feature/TSbranch
        env:
-        GITHUB_TOKEN: ${{ secrets.G_ACCESS_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
      - name: Create Pull Request
        run: |
