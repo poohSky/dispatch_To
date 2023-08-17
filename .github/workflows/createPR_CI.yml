@@ -17,14 +17,12 @@ jobs:
   create_pull_request:
     # The type of runner that the job will run on
     runs-on: [ self-hosted ]
-    permissions:
-      contents: write
-      packages: write
       
     steps:
      - name: Checkout action
        uses: actions/checkout@v3
        with:
+         submodules: 'recursive'
          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
 
@@ -36,11 +34,6 @@ jobs:
          persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
          fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
          token: ${{ secrets.GITHUB_TOKEN }}
-         
-     - name: Set up Git
-       env:
-         GIT_ASKPASS: /dev/null
-       run: echo $SUBMODULE_TOKEN > token.txt
         
      - name: Update submodule and create branch
        run: |
@@ -64,15 +57,7 @@ jobs:
         git branch
 
         echo "git push check"
-        # git push --force origin feature/TSbranch
-        
-     - name: push changes
-       uses: ad-m/github-push-action@v0.6.0
-       with:
-         github_token: ${{ secrets.GITHUB_TOKEN }}
-         repository: poohSky/dispatch_From
-         branch: feature/TSbranch
-         force: true
+        git push --force origin feature/TSbranch
         
      - name: Create Pull Request
        run: |
