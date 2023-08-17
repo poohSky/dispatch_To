@@ -31,6 +31,8 @@ jobs:
         git checkout -b feature/TSbranch
         git pull
 
+        echo "test check point"
+        git status
         git config --local user.name "poohSky"
         git config --local user.email "thebluesky93@naver.com"
           
@@ -43,6 +45,7 @@ jobs:
         git branch
 
         echo "git push check"
+        git log
         git push origin main
        env:
         GITHUB_TOKEN: ${{ secrets.G_ACCESS_TOKEN }}
