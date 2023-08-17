@@ -37,8 +37,8 @@ jobs:
        run: |
         cd dispatch_From
 
-         git branch -D feature/TSbranch
-         git checkout -b feature/TSbranch
+        git branch -D feature/TSbranch
+        git checkout -b feature/TSbranch
         echo "test git status check point"
         git status
 
@@ -56,8 +56,6 @@ jobs:
 
         echo "git push check"
         git push --force origin feature/TSbranch
-       env:
-         token: ${{ secrets.GITHUB_TOKEN }} 
          
      - name: Create Pull Request
        run: |
