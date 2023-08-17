@@ -27,7 +27,7 @@ jobs:
        with:
          repository: poohSky/dispatch_From
          path: dispatch_From
-         token: ${{ secrets.G_ACCESS_TOKEN }}
+         token: ${{ secrets.GITHUB_TOKEN }}
           
      - name: Update submodule and create branch
        run: |
