@@ -29,7 +29,10 @@ jobs:
        with:
          repository: poohSky/dispatch_From
          path: dispatch_From
-        
+         
+     - name: Check actions/stale action
+       uses: actions/stale@v5
+     
      - name: Update submodule and create branch
        run: |
         cd dispatch_From
