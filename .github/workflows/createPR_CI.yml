@@ -19,9 +19,16 @@ jobs:
     runs-on: [ self-hosted ]
 
     steps:
-     - name: Checkout code
+     - name: Checkout action
        uses: actions/checkout@v3
 
+     - name: Checkout submodule
+       uses: actions/checkout@v3
+       with:
+         repository: poohSky/dispatch_From
+         path: dispatch_From
+         token: ${{ secrets.G_ACCESS_TOKEN }}
+          
      - name: Update submodule and create branch
        run: |
         git submodule update --init --recursive
