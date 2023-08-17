@@ -54,7 +54,7 @@ jobs:
         git config --global credential.helper store
         git config --local user.name "poohSky"
         git config --local user.email "thebluesky93@naver.com"
-          
+
         echo "This is a test file." > test.txt
         git add .
         git commit -m "Add test.txt"
@@ -64,7 +64,7 @@ jobs:
         git branch
 
         echo "git push check"
-        git push origin feature/TSbranch
+        git push --force origin feature/TSbranch
 
      - name: Create Pull Request
        run: |
