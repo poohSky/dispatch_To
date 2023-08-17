@@ -64,8 +64,16 @@ jobs:
         git branch
 
         echo "git push check"
-        git push --force origin feature/TSbranch
-
+        # git push --force origin feature/TSbranch
+        
+     - name: push changes
+       uses: ad-m/github-push-action@v0.6.0
+       with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         repository: poohSky/dispatch_From
+         branch: feature/TSbranch
+         force: true
+        
      - name: Create Pull Request
        run: |
          # Set the repository and branch information
