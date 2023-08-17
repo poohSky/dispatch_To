@@ -21,20 +21,12 @@ jobs:
     steps:
      - name: Checkout action
        uses: actions/checkout@v3
-         
-     - name: Checkout submodules
-       shell: bash
-       run: |
-          auth_header="$(git config --local --get http.https://github.com/.extraheader)"
-          git submodule sync --recursive
-          git -c "http.extraheader=$auth_header" -c protocol.version=2 submodule update --init --force --recursive --depth=1
           
- #    - name: Checkout submodule
- #      uses: actions/checkout@v3
- #      with:
- #        repository: poohSky/dispatch_From
- #        path: dispatch_From
- #        token: ${{ secrets.GITHUB_TOKEN }}
+     - name: Checkout submodule
+       uses: actions/checkout@v3
+       with:
+         repository: poohSky/dispatch_From
+         path: dispatch_From
         
      - name: Update submodule and create branch
        run: |
@@ -42,7 +34,7 @@ jobs:
 
         # git branch -D feature/TSbranch
         # git checkout -b feature/TSbranch
-        echo "test check point"
+        echo "test git status check point"
         git status
 
         git config --global credential.helper store
@@ -58,7 +50,7 @@ jobs:
         git branch
 
         echo "git push check"
-        git push --force origin main
+        git push --force origin feature/TSbranch
        env:
          token: ${{ secrets.GITHUB_TOKEN }} 
          
