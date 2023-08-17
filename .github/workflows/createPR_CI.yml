@@ -27,9 +27,12 @@ jobs:
         git submodule update --init --recursive
         cd dispatch_From
 
-        git branch -D feature/TSbranch
-        git checkout -b feature/TSbranch
-        
+        # git branch -D feature/TSbranch
+        # git checkout -b feature/TSbranch
+
+        git config --local user.name "poohSky"
+        git config --local user.email "thebluesky93@naver.com"
+          
         echo "This is a test file." > test.txt
         git add .
         git commit -m "Add test.txt"
@@ -39,26 +42,39 @@ jobs:
         git branch
 
         echo "git push check"
-        git push origin feature/TSbranch
+        git push origin main
        env:
         GITHUB_TOKEN: ${{ secrets.G_ACCESS_TOKEN }}
-    
-     - name: Get GitHub User and Email
-       run: |
-        GITHUB_USER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | Select-Object -ExpandProperty login)
-        GITHUB_EMAIL=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | Select-Object -ExpandProperty email)
 
      - name: Create Pull Request
        run: |
-        GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-        GITHUB_REPOSITORY=${{ github.repository }}
-        REPO_OWNER=$(echo $GITHUB_REPOSITORY | cut -d / -f 1)
-        REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)
-        TITLE="create PR test"
-        BODY="Test body :earth_asia:"
+         # Set the repository and branch information
+         REPO_OWNER=poohSky
+         REPO_NAME=dispatch_From
+         BASE_BRANCH=main
+         HEAD_BRANCH=TestBranch
+
+         # Create Pull Request from the submodule repository
+         gh pr create --base $BASE_BRANCH --head $REPO_OWNER:$HEAD_BRANCH --title "Create PR test" --body "Test body :earth_asia:" --repo $REPO_OWNER/$REPO_NAME
+         
+ # start --------------------------------------------------------------------------------------------------------------------
+ #    - name: Get GitHub User and Email
+ #      run: |
+ #       GITHUB_USER=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | Select-Object -ExpandProperty login)
+ #       GITHUB_EMAIL=$(curl -s -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/user | Select-Object -ExpandProperty email)
+
+ #    - name: Create Pull Request
+ #      run: |
+ #       GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+ #       GITHUB_REPOSITORY=${{ github.repository }}
+ #       REPO_OWNER=$(echo $GITHUB_REPOSITORY | cut -d / -f 1)
+ #       REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d / -f 2)
+ #       TITLE="create PR test"
+ #       BODY="Test body :earth_asia:"
         
-        gh pr create --base main --head $GITHUB_USER:feature/TSbranch --title "$TITLE" --body "$BODY" --repo $REPO_OWNER/$REPO_NAME
-        
+ #       gh pr create --base main --head $GITHUB_USER:feature/TSbranch --title "$TITLE" --body "$BODY" --repo $REPO_OWNER/$REPO_NAME
+ # end --------------------------------------------------------------------------------------------------------------------
+ 
  #       curl -X POST -H "Authorization: token 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" -d '{
  #       "title": "Test Pull Request Title",
  #       "body": "Pull Request Body :earth_asia:",
